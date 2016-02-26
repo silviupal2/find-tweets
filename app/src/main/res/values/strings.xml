@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">findtweets</string>
-
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_name">Find Tweets</string>
+    <string name="title">Find Tweets</string>
+    <string name="search_field_input_hint">What do you want to find?</string>
 </resources>
