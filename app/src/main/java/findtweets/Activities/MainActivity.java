@@ -87,7 +87,5 @@ public class MainActivity extends AppCompatActivity
 		Intent intent = new Intent(this, TweetListActivity.class);
 		intent.putExtra(Keys.QUERY_RESPONSE_MODEL, model);
 		startActivity(intent);
-
-
 	}
 }

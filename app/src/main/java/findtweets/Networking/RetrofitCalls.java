@@ -14,7 +14,7 @@ public interface RetrofitCalls
 	// Add more parameters - https://dev.twitter.com/rest/reference/get/search/tweets
 
 	//TODO add search call from twitter
-	@GET("")
+	@GET("search/tweets.json")
 	Call<QueryResponseModel> search(@Query("q") String query);
 
 }

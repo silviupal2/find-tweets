@@ -21,16 +21,10 @@ public class FindTweetsApp extends Application
 	public void onCreate()
 	{
 		super.onCreate();
-		if (mRetrofitService == null)
-		{
-			mRetrofitService = newRetrofitService();
-		}
 		mInstance = this;
-	}
 
-	private RetrofitCalls newRetrofitService()
-	{
-		return RetrofitConfiguration.getBuilder().build().create(RetrofitCalls.class);
+		mRetrofitService = getRetrofitService();
+
 	}
 
 	public RetrofitCalls getRetrofitService()
@@ -40,5 +34,10 @@ public class FindTweetsApp extends Application
 			mRetrofitService = newRetrofitService();
 		}
 		return mRetrofitService;
+	}
+
+	private RetrofitCalls newRetrofitService()
+	{
+		return RetrofitConfiguration.createService(RetrofitCalls.class);
 	}
 }
