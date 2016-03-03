@@ -1,9 +1,9 @@
-package findtweets;
+package silviu.pack;
 
-import findtweets.Models.TwitterResultModel;
+import silviu.pack.Models.TwitterResultModel;
 
 /**
- * Created by CronianAdmin on 2/29/2016.
+ * Created by Silviu on 2/29/2016.
  */
 public class DataHolder
 {

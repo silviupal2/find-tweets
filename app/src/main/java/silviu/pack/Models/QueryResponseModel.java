@@ -1,4 +1,4 @@
-package findtweets.Models;
+package silviu.pack.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

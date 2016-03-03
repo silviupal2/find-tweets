@@ -1,28 +1,34 @@
-package findtweets.Activities;
+package silviu.pack.Activities;
 
+import android.support.v4.app.FragmentActivity;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterSession;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import silviu.pack.FindTweetsApp;
+import silviu.pack.Keys;
 import android.content.Intent;
-import android.text.TextUtils;
-import findtweets.FindTweetsApp;
-import findtweets.Keys;
-import findtweets.Models.QueryResponseModel;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import retrofit.Call;
-import retrofit.Response;
-import silviu.findtweets.R;
-
-import java.io.IOException;
+import silviu.pack.Logger;
+import silviu.pack.Models.QueryResponseModel;
+import silviu.pack.Models.TwitterResultModel;
+import silviu.pack.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends FragmentActivity
 {
+	public static final String TAG = "MainActivity";
+
 	private EditText mSearchField;
 
 	@Override
@@ -30,10 +36,6 @@ public class MainActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		if (getSupportActionBar() != null)
-		{
-			getSupportActionBar().hide();
-		}
 		mSearchField = (EditText) findViewById(R.id.search_field);
 		mSearchField.setOnEditorActionListener(mSearchFieldListener);
 
@@ -61,25 +63,34 @@ public class MainActivity extends AppCompatActivity
 		String textInput = mSearchField.getText().toString();
 		if (!TextUtils.isEmpty(textInput))
 		{
+			TwitterSession session = Twitter.getSessionManager().getActiveSession();
+			TwitterAuthToken authToken = session.getAuthToken();
+			String token = authToken.token;
+			String secret = authToken.secret;
+
 			Call<QueryResponseModel> queryCall = FindTweetsApp.getInstance().getRetrofitService().search(textInput);
-			try
+			queryCall.enqueue(new Callback<QueryResponseModel>()
 			{
-				Response<QueryResponseModel> searchResponse = queryCall.execute();
-				if (searchResponse != null)
+				@Override
+				public void onResponse(Call<QueryResponseModel> call, Response<QueryResponseModel> searchResponse)
 				{
-					if (searchResponse.body() != null)
+					if (searchResponse != null)
 					{
-						showResults(searchResponse.body());
+						if (searchResponse.body() != null)
+						{
+							Logger.getLogger().i(TAG, "Call to search successful");
+							showResults(searchResponse.body());
+						}
 					}
 				}
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
 
+				@Override
+				public void onFailure(Call<QueryResponseModel> call, Throwable t)
+				{
+					t.printStackTrace();
+				}
+			});
 		}
-
 	}
 
 	private void showResults(QueryResponseModel model)

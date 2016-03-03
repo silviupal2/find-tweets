@@ -1,7 +1,7 @@
-package findtweets;
+package silviu.pack;
 
 import android.util.Log;
-import silviu.findtweets.BuildConfig;
+import silviu.pack.BuildConfig;
 
 /**
  * Created by Silviu on 2/26/2016.

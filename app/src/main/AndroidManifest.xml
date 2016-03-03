@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="silviu.findtweets"
+    package="silviu.pack"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name="findtweets.FindTweetsApp"
+        android:name="silviu.pack.FindTweetsApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="findtweets.Activities.LoginWithTwitterActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name="silviu.pack.Activities.LoginWithTwitterActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,15 +22,16 @@
         </activity>
 
         <activity
-            android:name="findtweets.Activities.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name="silviu.pack.Activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/ActivityTheme" />
 
 
         <activity
-            android:name="findtweets.Activities.TweetListActivity"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:name="silviu.pack.Activities.TweetListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityTheme" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ef0746e98e7c9f069472ca3058f52e44af562014" />

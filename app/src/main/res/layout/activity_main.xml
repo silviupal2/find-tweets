@@ -5,8 +5,7 @@
     android:background="#0099cc"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    android:orientation="vertical"
-    tools:context="findtweets.Activities.MainActivity">
+    android:orientation="vertical">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -35,8 +34,9 @@
             android:id="@+id/search_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@android:color/white"
-            />
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white" />
     </android.support.design.widget.TextInputLayout>
 
 
