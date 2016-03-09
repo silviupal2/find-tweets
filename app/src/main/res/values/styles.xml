@@ -11,4 +11,10 @@
     <style name="ActivityTheme" parent="AppTheme">
         <item name="colorAccent">@android:color/white</item>
     </style>
+
+    <style name="SpecialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#555</item>
+        <item name="android:textColorPrimary">#fff</item>
+    </style>
+
 </resources>

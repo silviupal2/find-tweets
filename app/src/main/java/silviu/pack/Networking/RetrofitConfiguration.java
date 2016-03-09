@@ -1,5 +1,6 @@
 package silviu.pack.Networking;
 
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -9,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitConfiguration
 {
-	public static final String API_BASE_URL = "https://api.twitter.com/1.1/";
+	public static final String API_BASE_URL = "https://api.twitter.com/";
 
 	private static OkHttpClient httpClient = new OkHttpClient();
 
@@ -27,6 +28,4 @@ public class RetrofitConfiguration
 
 		return adapter.create(serviceClass);
 	}
-
-
 }

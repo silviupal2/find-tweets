@@ -5,6 +5,9 @@ package silviu.pack;
  */
 public class Keys
 {
-	public static final String QUERY_RESPONSE_MODEL = "query_response_model";
-	public static final String LOGIN_RESPONSE_MODEL = "response_model";
+	public static final String QUERY_RESPONSE_MODEL    = "query_response_model";
+	public static final String LOGIN_RESPONSE_MODEL    = "response_model";
+	public static final String KEY_GRANT_TYPE          = "grant_type";
+	public static final String CLIENT_CREDENTIALS_TYPE = "client_credentials";
+
 }

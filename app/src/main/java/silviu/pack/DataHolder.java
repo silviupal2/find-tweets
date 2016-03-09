@@ -1,5 +1,7 @@
 package silviu.pack;
 
+import retrofit.http.Query;
+import silviu.pack.Models.QueryResponseModel;
 import silviu.pack.Models.TwitterResultModel;
 
 /**
@@ -8,6 +10,9 @@ import silviu.pack.Models.TwitterResultModel;
 public class DataHolder
 {
 	private static final String TAG = "DataHolder";
+	private static TwitterResultModel twitterResultModel;
+	private static QueryResponseModel queryResponseModel;
+	private static String bearerToken;
 
 	public static TwitterResultModel getTwitterResultModel()
 	{
@@ -19,7 +24,23 @@ public class DataHolder
 		DataHolder.twitterResultModel = twitterResultModel;
 	}
 
-	private static TwitterResultModel twitterResultModel;
+	public static void setQueryResponseModel(QueryResponseModel queryResponseModel)
+	{
+		DataHolder.queryResponseModel = queryResponseModel;
+	}
 
+	public static QueryResponseModel getQueryResponseModel()
+	{
+		return queryResponseModel;
+	}
 
+	public static void setBearerToken(String bearerToken)
+	{
+		DataHolder.bearerToken = bearerToken;
+	}
+
+	public static String getBearerToken()
+	{
+		return bearerToken;
+	}
 }
