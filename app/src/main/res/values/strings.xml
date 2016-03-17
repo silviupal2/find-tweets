@@ -3,4 +3,7 @@
     <string name="title">Find Tweets</string>
     <string name="search_field_input_hint">What do you want to find?</string>
     <string name="dummy_id">\@franciscsiviu</string>
+    <string name="popular">Popular</string>
+    <string name="recent">Recent</string>
+    <string name="mixed">Mixed</string>
 </resources>

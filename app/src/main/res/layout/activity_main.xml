@@ -39,6 +39,33 @@
             android:textColor="@android:color/white" />
     </android.support.design.widget.TextInputLayout>
 
+    <RadioGroup
+        android:id="@+id/radio_group_for_result_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_popular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/popular" />
+
+        <RadioButton
+            android:id="@+id/radio_recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recent" />
+
+        <RadioButton
+            android:id="@+id/radio_mixed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mixed" />
+    </RadioGroup>
+
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/search_button"
         android:layout_width="wrap_content"

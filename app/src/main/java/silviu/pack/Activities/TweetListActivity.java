@@ -1,65 +1,140 @@
 package silviu.pack.Activities;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import com.squareup.picasso.Picasso;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.Response;
 import silviu.pack.Adapters.DataAdapter;
 import silviu.pack.DataHolder;
+import silviu.pack.EndlessRecyclerOnScrollListener;
 import silviu.pack.FindTweetsApp;
 import silviu.pack.Keys;
 import silviu.pack.Logger;
 import silviu.pack.Models.QueryResponseModel;
-import silviu.pack.Models.StatusModel;
 import silviu.pack.R;
-import silviu.pack.ViewHolder;
-
-import java.util.Collection;
 
 public class TweetListActivity extends FragmentActivity
 {
 	public static final String TAG = "TweetListActivity";
+	private SwipeRefreshLayout  mSwipeRefreshLayout;
 	private RecyclerView        mRecyclerView;
 	private DataAdapter         mAdapter;
-	private QueryResponseModel  mModel;
 	private LinearLayoutManager mLayoutManager;
+	private String              mQuery;
+	private String              mResultType;
+	EndlessRecyclerOnScrollListener endlessRecyclerOnScrollListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tweet_list);
-		mModel = DataHolder.getQueryResponseModel();
+
+		final Intent intent = getIntent();
+		if (intent.hasExtra(Keys.KEY_TEXT_INPUT))
+		{
+			mQuery = intent.getStringExtra(Keys.KEY_TEXT_INPUT);
+			mResultType = intent.getStringExtra(Keys.KEY_RESULT_TYPE);
+		}
+
+
 		if (mAdapter == null)
 		{
 			mAdapter = new DataAdapter(LayoutInflater.from(this));
 		}
-		mAdapter.setData(mModel.getStatuses());
+
+		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
 		mRecyclerView = (RecyclerView) findViewById(R.id.twitter_recycler_view);
 		mLayoutManager = new LinearLayoutManager(FindTweetsApp.getInstance());
 		mRecyclerView.setLayoutManager(mLayoutManager);
 		mRecyclerView.setAdapter(mAdapter);
+		addPageDataToAdapter(0, 0, 10);
+		mRecyclerView.addOnScrollListener(endlessRecyclerOnScrollListener);
 
-		//TODO Use RecyclerView.Adapter instead of ArrayAdapter
-
+		mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+		{
+			@Override
+			public void onRefresh()
+			{
+				resetAdapter();
+				addPageDataToAdapter(0, 0, 10);
+			}
+		});
 	}
+
+	private void resetAdapter()
+	{
+		mAdapter.clearDataList();
+		mAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		endlessRecyclerOnScrollListener.reset(0, true);
+	}
+
+	private void addPageDataToAdapter(int currentPage, long maxId, int count)
+	{
+		final String authBearer = String.format("Bearer %s", DataHolder.getBearerToken());
+
+
+		Logger.getLogger().i(TAG, "Query Params: authBearer = " + authBearer + "\n query = " + mQuery + "\n count = "
+				+ count + "\n result_type = " + mResultType + "\n currentPage = " + currentPage);
+		final Call<QueryResponseModel> queryCall = FindTweetsApp.getInstance()
+																.getRetrofitService()
+																.search(authBearer, mQuery, count, mResultType, maxId);
+		Logger.getLogger().i(TAG, "Query Call = " + queryCall.request().url());
+		queryCall.enqueue(new retrofit2.Callback<QueryResponseModel>()
+		{
+			@Override
+			public void onResponse(Call<QueryResponseModel> call, Response<QueryResponseModel> searchResponse)
+			{
+				if (searchResponse != null)
+				{
+					if (searchResponse.body() != null)
+					{
+						Logger.getLogger().i(TAG, "Call to search successful");
+						mAdapter.setData(searchResponse.body().getStatuses());
+					}
+					else
+					{
+						Logger.getLogger().i(TAG, "Call not working");
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(Call<QueryResponseModel> call, Throwable t)
+			{
+				t.printStackTrace();
+			}
+		});
+		endlessRecyclerOnScrollListener = new EndlessRecyclerOnScrollListener(mLayoutManager)
+		{
+			@Override
+			public void onLoadMore(int current_page)
+			{
+				addPageDataToAdapter(current_page, mAdapter.getLowerIdFromList(), 10);
+			}
+		};
+	}
+
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		mAdapter.clearDataList();
+		mAdapter = null;
+		mRecyclerView = null;
+	}
+
 
 }

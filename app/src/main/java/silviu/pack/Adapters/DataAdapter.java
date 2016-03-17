@@ -13,18 +13,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
+import silviu.pack.Logger;
 import silviu.pack.Models.StatusModel;
 import silviu.pack.R;
 import silviu.pack.ViewHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 //	adapters
 public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 {
+	public final String TAG = "DataAdapter";
+
 	private final int DEFAULT_ITEM = 0;
 
 	private final LayoutInflater    mInflater;
@@ -68,6 +72,7 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 			switch (viewType)
 			{
 				case DEFAULT_ITEM:
+					Logger.getLogger().i(TAG, "onBindViewHolder - default item");
 					final StatusModel statusModel = mData.get(position);
 					if (statusModel != null)
 					{
@@ -101,7 +106,9 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 	@Override
 	public int getItemCount()
 	{
-		return mData.size();
+		final int size = mData != null ? mData.size() : 0;
+		Logger.getLogger().i(TAG, "data size = " + size);
+		return size;
 	}
 
 	@Override
@@ -109,10 +116,12 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 	{
 		if (position >= 0 && position < mData.size())
 		{
+			Logger.getLogger().i(TAG, "Default Item");
 			return DEFAULT_ITEM;
 		}
 		else
 		{
+			Logger.getLogger().i(TAG, "Type -1");
 			return -1;
 		}
 	}
@@ -128,9 +137,14 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 
 	public void setData(List<StatusModel> data)
 	{
-		this.mData = data;
+		Logger.getLogger().i(TAG, "Data size = " + (data != null ? data.size() : 0));
+		if (mData == null)
+		{
+			mData = new ArrayList<>();
+		}
+		this.mData.addAll(data);
+		notifyDataSetChanged();
 	}
-
 
 	private String dateProcessing(String dateString)
 	{
@@ -147,7 +161,11 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 			long hours = (int) (((timePassedInMillis / 1000) - (days * 86400)) / 3600);
 			long minutes = (int) (((timePassedInMillis / 1000) - ((days * 86400) + (hours * 3600))) / 60);
 
-			if (days == 0 && hours == 0)
+			if (days == 0 && hours == 0 && minutes == 0)
+			{
+				finalString = String.format("%s", "now");
+			}
+			else if (days == 0 && hours == 0)
 			{
 				finalString = String.format("%dm", minutes);
 			}
@@ -167,6 +185,26 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 		}
 
 		return finalString;
+	}
+
+	public long getLowerIdFromList()
+	{
+		long minId = 0;
+		if (mData != null)
+		{
+			StatusModel statusModel = mData.get(0);
+			minId = statusModel.getId();
+
+			for (int i = 1; i < mData.size(); i++)
+			{
+				statusModel = mData.get(i);
+				if (statusModel.getId() < minId)
+				{
+					minId = statusModel.getId();
+				}
+			}
+		}
+		return minId;
 	}
 
 }

@@ -33,6 +33,7 @@ public interface RetrofitCalls
 
 	//TODO add search call from twitter
 	@GET("1.1/search/tweets.json")
-	Call<QueryResponseModel> search(@Header("Authorization") String authorization, @Query("q") String query);
+	Call<QueryResponseModel> search(@Header("Authorization") String authorization, @Query("q") String query, @Query
+			("count") int count, @Query("result_type") String resultType, @Query("max_id") long maxId);
 
 }

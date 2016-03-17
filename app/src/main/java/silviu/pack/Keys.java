@@ -9,5 +9,7 @@ public class Keys
 	public static final String LOGIN_RESPONSE_MODEL    = "response_model";
 	public static final String KEY_GRANT_TYPE          = "grant_type";
 	public static final String CLIENT_CREDENTIALS_TYPE = "client_credentials";
+	public static final String KEY_TEXT_INPUT          = "text_input";
+	public static final String KEY_RESULT_TYPE         = "result_type";
 
 }

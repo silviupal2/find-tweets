@@ -46,11 +46,9 @@ dependencies {
     //retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
-    compile 'com.squareup.okhttp3:okhttp:3.1.1'
-    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.1.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.1.1'
-    compile 'com.squareup.okhttp:okhttp:2.0.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.1.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
 

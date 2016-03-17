@@ -12,18 +12,18 @@ public class StatusModel implements Parcelable
 	private MetadataModel metadata;
 	@SerializedName("created_at")
 	private String        createdAt; //		"created_at": "Fri Mar 04 09:47:39 +0000 2016",
-	private long          id; //		"id": 705691165018951680,
+	private long        id; //		"id": 705691165018951680,
 	@SerializedName("id_str")
-	private String        idStr; //		"id_str": "705691165018951680",
-	private String        text; //	"text": "puternică faza! https://t.co/WncgSqEjUS",
-	private String        source; // "source": "<a href=\"http://www.facebook.com/twitter\" rel=\"nofollow\">Facebook</a>",
-	private boolean       truncated; // "truncated": false,
-	private UserModel     user;
+	private String      idStr; //		"id_str": "705691165018951680",
+	private String      text; //	"text": "puternică faza! https://t.co/WncgSqEjUS",
+	private String      source; // "source": "<a href=\"http://www.facebook.com/twitter\" rel=\"nofollow\">Facebook</a>",
+	private boolean     truncated; // "truncated": false,
+	private UserModel   user;
 	@SerializedName("retweet_count")
-	private int           retweetCount; //"retweet_count": 1,
+	private int         retweetCount; //"retweet_count": 1,
 	@SerializedName("favourite_count")
-	private int           favoriteCount; //			"favorite_count": 0,
-	private EntityModel   entities;
+	private int         favoriteCount; //			"favorite_count": 0,
+	private EntityModel entities;
 
 	public StatusModel()
 	{
@@ -108,6 +108,16 @@ public class StatusModel implements Parcelable
 	public void setCreatedAt(String createdAt)
 	{
 		this.createdAt = createdAt;
+	}
+
+	public long getId()
+	{
+		return id;
+	}
+
+	public void setId(long id)
+	{
+		this.id = id;
 	}
 
 	@Override
