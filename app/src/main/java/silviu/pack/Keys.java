@@ -11,5 +11,6 @@ public class Keys
 	public static final String CLIENT_CREDENTIALS_TYPE = "client_credentials";
 	public static final String KEY_TEXT_INPUT          = "text_input";
 	public static final String KEY_RESULT_TYPE         = "result_type";
+	public static final String KEY_LANG_POSITION       = "locale";
 
 }

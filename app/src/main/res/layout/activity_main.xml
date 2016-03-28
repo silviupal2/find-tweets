@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +26,6 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
         android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"
         android:hint="@string/search_field_input_hint">
@@ -34,6 +34,7 @@
             android:id="@+id/search_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:maxLength="50"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@android:color/white" />
@@ -65,6 +66,28 @@
             android:layout_height="wrap_content"
             android:text="@string/mixed" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_select_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_padding"
+        android:singleLine="true"
+        android:text="@string/select_language"
+        android:textColor="@android:color/white"
+        android:textSize="16dp" />
+
+    <Spinner
+        android:id="@+id/locales_spinner"
+        style="@style/AppTheme.Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+
+        />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/search_button"

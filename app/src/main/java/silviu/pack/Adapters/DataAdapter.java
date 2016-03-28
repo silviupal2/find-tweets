@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
+import silviu.pack.Activities.TweetListActivity;
 import silviu.pack.Logger;
 import silviu.pack.Models.StatusModel;
 import silviu.pack.R;
@@ -34,10 +35,11 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 	private final LayoutInflater    mInflater;
 	private final Context           mContext;
 	private       List<StatusModel> mData;
+	private       TweetListActivity mActivity;
 
-	public DataAdapter(LayoutInflater inflater)
+	public DataAdapter(LayoutInflater inflater, TweetListActivity activity)
 	{
-
+		mActivity = activity;
 		mContext = inflater.getContext();
 		mInflater = inflater;
 	}
@@ -133,6 +135,16 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 			mData.clear();
 		}
 		notifyDataSetChanged();
+	}
+
+	public void setDataList(List<StatusModel> data)
+	{
+		this.mData = data;
+	}
+
+	public List<StatusModel> getData()
+	{
+		return mData;
 	}
 
 	public void setData(List<StatusModel> data)

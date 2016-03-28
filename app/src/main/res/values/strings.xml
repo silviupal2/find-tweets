@@ -1,4 +1,24 @@
 <resources>
+    <string-array name="locales_strings">
+        <item>English</item>
+        <item>Romanian</item>
+        <item>Danish</item>
+        <item>Greek</item>
+        <item>Hungarian</item>
+        <item>German</item>
+        <item>French</item>
+    </string-array>
+
+    <string-array name="locales_strings_prefix">
+        <item>en</item>
+        <item>ro</item>
+        <item>da</item>
+        <item>el</item>
+        <item>hu</item>
+        <item>de</item>
+        <item>fr</item>
+    </string-array>
+
     <string name="app_name">Find Tweets</string>
     <string name="title">Find Tweets</string>
     <string name="search_field_input_hint">What do you want to find?</string>
@@ -6,4 +26,9 @@
     <string name="popular">Popular</string>
     <string name="recent">Recent</string>
     <string name="mixed">Mixed</string>
+    <string name="empty_error_string">This field cannot be empty!</string>
+    <string name="test_error_string">The text inserted is not valid. Please try again!</string>
+    <string name="select_language">Language</string>
+    <string name="zero_results">0 results</string>
+    <string name="no_internet">No Internet connection!</string>
 </resources>
