@@ -89,7 +89,7 @@ public class DataAdapter extends RecyclerView.Adapter<ViewHolder>
 						if (!TextUtils.isEmpty(statusModel.getCreatedAt()))
 						{
 							final String date = dateProcessing(statusModel.getCreatedAt());
-
+							Logger.getLogger().i(TAG, date);
 							viewHolder.tweetDate.setText(date);
 						}
 						if (!TextUtils.isEmpty(statusModel.getText()))

@@ -139,8 +139,11 @@ public class TweetListActivity extends FragmentActivity
 				{
 					if (searchResponse.body() != null)
 					{
-						Logger.getLogger().i(TAG, "Call to search successful");
-						mAdapter.setData(getOnlyGoodData(searchResponse.body().getStatuses(), maxId));
+						if (searchResponse.body().getStatuses() != null)
+						{
+							Logger.getLogger().i(TAG, "Call to search successful");
+							mAdapter.setData(getOnlyGoodData(searchResponse.body().getStatuses(), maxId));
+						}
 					}
 					else
 					{
